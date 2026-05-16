@@ -31,6 +31,75 @@
             backdrop-filter: blur(10px);
         }
 
+        /* Favorite Cities Menu */
+        .cities-menu {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f0f0f0;
+            overflow-x: auto;
+            align-items: center;
+        }
+
+        .cities-menu::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .cities-menu::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .cities-menu::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 10px;
+        }
+
+        .cities-menu::-webkit-scrollbar-thumb:hover {
+            background: #764ba2;
+        }
+
+        .city-btn {
+            padding: 10px 18px;
+            border: 2px solid #667eea;
+            border-radius: 25px;
+            background: white;
+            color: #667eea;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .city-btn:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .city-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .city-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 6px;
+            background: #667eea;
+            border-radius: 50%;
+        }
+
         .weather-header {
             display: flex;
             justify-content: space-between;
@@ -294,9 +363,33 @@
             margin-bottom: 20px;
         }
 
+        .loading-spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
         @media (max-width: 768px) {
             .weather-widget {
                 padding: 25px;
+            }
+
+            .cities-menu {
+                gap: 8px;
+            }
+
+            .city-btn {
+                padding: 8px 14px;
+                font-size: 12px;
             }
 
             .weather-details {
@@ -331,6 +424,17 @@
 </head>
 <body>
     <div class="weather-widget">
+        <!-- Favorite Cities Menu -->
+        <div class="cities-menu" id="citiesMenu">
+            <button class="city-btn active" data-city="New York" data-lat="40.7128" data-lon="-74.0060">🗽 New York</button>
+            <button class="city-btn" data-city="London" data-lat="51.5074" data-lon="-0.1278">🇬🇧 London</button>
+            <button class="city-btn" data-city="Tokyo" data-lat="35.6762" data-lon="139.6503">🗾 Tokyo</button>
+            <button class="city-btn" data-city="Istanbul" data-lat="41.0082" data-lon="28.9784">🕌 Istanbul</button>
+            <button class="city-btn" data-city="Paris" data-lat="48.8566" data-lon="2.3522">🗼 Paris</button>
+            <button class="city-btn" data-city="Berlin" data-lat="52.5200" data-lon="13.4050">🇩🇪 Berlin</button>
+            <button class="city-btn" data-city="Dubai" data-lat="25.2048" data-lon="55.2708">🏙️ Dubai</button>
+        </div>
+
         <div class="weather-header">
             <div class="location-info">
                 <div class="location-name" id="locationName">Loading...</div>
@@ -487,6 +591,30 @@
         let longitude = -74.0060;
         let locationName = 'New York';
 
+        // Initialize city buttons
+        function initializeCityButtons() {
+            const cityButtons = document.querySelectorAll('.city-btn');
+            cityButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    cityButtons.forEach(b => b.classList.remove('active'));
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Update coordinates and fetch data
+                    latitude = parseFloat(this.dataset.lat);
+                    longitude = parseFloat(this.dataset.lon);
+                    locationName = this.dataset.city;
+                    
+                    // Clear error message
+                    document.getElementById('errorContainer').innerHTML = '';
+                    
+                    // Fetch new data
+                    fetchWeatherData();
+                });
+            });
+        }
+
         // Get user's location
         function getLocation() {
             if (navigator.geolocation) {
@@ -497,7 +625,7 @@
                         fetchWeatherData();
                     },
                     (error) => {
-                        console.log('Using default location');
+                        console.log('Using default location (New York)');
                         fetchWeatherData();
                     }
                 );
@@ -550,8 +678,8 @@
                 const icon = getWeatherIcon(weatherCode);
                 const description = getWeatherDescription(weatherCode);
 
-                // Get location name from geocoding
-                if (geoData.results && geoData.results.length > 0) {
+                // Get location name from geocoding if not from city menu
+                if (geoData.results && geoData.results.length > 0 && !document.querySelector('.city-btn.active').dataset.city) {
                     const result = geoData.results[0];
                     locationName = result.name + (result.country ? ', ' + result.country : '');
                 }
@@ -579,6 +707,9 @@
                 updatePollenData(pollenData);
 
                 updateDate();
+                
+                // Clear any loading states
+                document.getElementById('errorContainer').innerHTML = '';
             } catch (error) {
                 console.error('Error updating widget:', error);
                 showError('Error updating weather data.');
@@ -679,6 +810,7 @@
         // Initialize on page load
         window.addEventListener('load', () => {
             updateDate();
+            initializeCityButtons();
             getLocation();
         });
     </script>
