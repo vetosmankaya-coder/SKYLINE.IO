@@ -149,7 +149,7 @@
                 const target = data.results[0];
                 currentCoords = { lat: target.latitude, lon: target.longitude, name: target.name };
                 fetchWeatherData(target.latitude, target.longitude, target.name);
-            } catch(e) { alert("Connection error"); }
+            } catch(e) { fetchWeatherData(currentCoords.lat, currentCoords.lon, currentCoords.name); }
         }
 
         async function fetchWeatherData(lat, lon, name) {
