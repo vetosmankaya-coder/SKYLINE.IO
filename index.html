@@ -3,40 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SKYLINE.IO - Universal Climate Intelligence</title>
+    <title>SKYLINE.IO - Ambient Intelligence</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; transition: all 0.2s ease; }
-        body { font-family: '-apple-system', BlinkMacSystemFont, sans-serif; background: #000000; color: #ffffff; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
-        .app-container { width: 100%; max-width: 480px; background: rgba(28, 28, 30, 0.75); backdrop-filter: blur(30px); border: 1px solid rgba(255,255,255,0.08); padding: 25px; border-radius: 32px; box-shadow: 0 30px 60px rgba(0,0,0,0.8); }
+        * { margin: 0; padding: 0; box-sizing: border-box; transition: all 0.5s ease; }
+        
+        /* Dinamik Canlı Arka Planlar (Hava Durumuna Göre Değişir) */
+        body { 
+            font-family: '-apple-system', BlinkMacSystemFont, sans-serif; 
+            min-height: 100vh; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            padding: 20px; 
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%); /* Varsayılan Ferah */
+            color: #1e293b;
+            position: relative;
+        }
+
+        /* Hava Durumu Temaları */
+        body.sunny { background: linear-gradient(135deg, #fef08a 0%, #bae6fd 100%); color: #1e293b; }
+        body.cloudy { background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%); color: #334155; }
+        body.rainy { background: linear-gradient(135deg, #94a3b8 0%, #cbd5e1 100%); color: #1e293b; }
+        body.snowy { background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%); color: #475569; }
+
+        /* Gökyüzü Canlı Efekt Parçacıkları Sistemi */
+        .weather-effects { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; overflow: hidden; }
+        .particle { position: absolute; background: rgba(255,255,255,0.7); border-radius: 50%; animation: fall linear infinite; }
+        
+        @keyframes fall {
+            0% { transform: translateY(-20px) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(105vh) translateX(50px); opacity: 0; }
+        }
+
+        /* Premium Cam Tasarımı (Glassmorphism) */
+        .app-container { 
+            width: 100%; 
+            max-width: 480px; 
+            background: rgba(255, 255, 255, 0.45); 
+            backdrop-filter: blur(25px); 
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255,255,255,0.4); 
+            padding: 25px; 
+            border-radius: 32px; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.05); 
+            z-index: 10;
+            position: relative;
+        }
+        
         .search-row { display: flex; gap: 8px; margin-bottom: 12px; }
-        input { flex: 1; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08); padding: 12px; color: #fff; border-radius: 14px; outline: none; font-size: 15px; }
-        button { background: #0a84ff; color: #fff; border: none; padding: 12px 16px; border-radius: 14px; font-weight: 600; cursor: pointer; font-size: 15px; }
-        button.add-fav { background: #30d158; }
+        input { flex: 1; background: rgba(255,255,255,0.5); border: 1px solid rgba(0,0,0,0.05); padding: 12px; color: #1e293b; border-radius: 14px; outline: none; font-size: 15px; font-weight: 500; }
+        input::placeholder { color: #64748b; }
+        button { background: #0a84ff; color: #fff; border: none; padding: 12px 16px; border-radius: 14px; font-weight: 600; cursor: pointer; font-size: 15px; box-shadow: 0 4px 10px rgba(10,132,255,0.2); }
+        button.add-fav { background: #34c759; box-shadow: 0 4px 10px rgba(52,199,89,0.2); }
+        
         .fav-bar { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 15px; scrollbar-width: none; min-height: 40px; }
         .fav-bar::-webkit-scrollbar { display: none; }
-        .fav-chip { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); padding: 8px 14px; border-radius: 20px; font-size: 13px; cursor: pointer; flex-shrink: 0; display: flex; align-items: center; gap: 6px; }
-        .fav-chip .del-btn { color: #ff453a; font-weight: bold; margin-left: 6px; font-size: 14px; }
+        .fav-chip { background: rgba(255,255,255,0.6); border: 1px solid rgba(0,0,0,0.03); padding: 8px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer; flex-shrink: 0; display: flex; align-items: center; gap: 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
+        .fav-chip .del-btn { color: #ff3b30; font-weight: bold; margin-left: 6px; font-size: 14px; }
+
         .header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
-        .location { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; }
-        .date { font-size: 13px; color: #8e8e93; }
+        .location { font-size: 24px; font-weight: 700; letter-spacing: -0.5px; }
+        .date { font-size: 13px; opacity: 0.7; font-weight: 500; }
         .action-btns { display: flex; gap: 10px; }
-        .icon-btn { background: rgba(255,255,255,0.1); border: none; color: #fff; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center; font-size: 16px; }
-        .settings-panel { display: none; background: #1c1c1e; border: 1px solid rgba(255,255,255,0.1); border-radius: 24px; padding: 20px; margin-bottom: 20px; }
-        .setting-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        select, .toggle-btn { background: rgba(255,255,255,0.1); color: #fff; border: none; padding: 8px 12px; border-radius: 10px; outline: none; font-size: 14px; cursor: pointer; }
-        .main-display { text-align: center; padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.08); }
-        .main-temp { font-size: 64px; font-weight: 200; line-height: 1; margin: 10px 0; }
-        .condition { font-size: 16px; color: #8e8e93; }
+        .icon-btn { background: rgba(0,0,0,0.05); border: none; color: inherit; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center; font-size: 16px; }
+        .icon-btn:hover { background: rgba(0,0,0,0.1); }
+        
+        .settings-panel { display: none; background: rgba(255,255,255,0.8); border-radius: 24px; padding: 20px; margin-bottom: 20px; border: 1px solid rgba(0,0,0,0.05); }
+        .setting-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; font-weight: 600; }
+        select, .toggle-btn { background: rgba(0,0,0,0.05); color: inherit; border: none; padding: 8px 12px; border-radius: 10px; outline: none; font-size: 14px; cursor: pointer; font-weight: 600; }
+
+        .main-display { text-align: center; padding: 15px 0; border-bottom: 1px solid rgba(0,0,0,0.05); }
+        
+        /* Gülümseyen ve Canlı Doğa Simgeleri Animasyonu */
+        .weather-avatar { font-size: 64px; display: inline-block; animation: pulse 3s ease-in-out infinite; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1) rotate(5deg); } }
+
+        .main-temp { font-size: 72px; font-weight: 200; line-height: 1; margin: 10px 0; letter-spacing: -2px; }
+        .condition { font-size: 16px; opacity: 0.8; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+        
         .grid-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0; }
-        .stat-card { background: rgba(255,255,255,0.03); padding: 15px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.02); }
-        .stat-label { font-size: 11px; color: #8e8e93; text-transform: uppercase; margin-bottom: 4px; }
-        .stat-value { font-size: 17px; font-weight: 600; }
-        .section-title { font-size: 13px; font-weight: 600; color: #8e8e93; text-transform: uppercase; margin: 15px 0 10px 0; }
+        .stat-card { background: rgba(255,255,255,0.4); padding: 15px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.3); box-shadow: 0 4px 10px rgba(0,0,0,0.01); }
+        .stat-label { font-size: 11px; opacity: 0.6; text-transform: uppercase; margin-bottom: 4px; font-weight: 700; letter-spacing: 0.5px; }
+        .stat-value { font-size: 17px; font-weight: 700; }
+        
+        .section-title { font-size: 13px; font-weight: 700; opacity: 0.6; text-transform: uppercase; margin: 15px 0 10px 0; letter-spacing: 0.5px; }
         .hourly-scroll { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 5px; scrollbar-width: none; }
-        .hourly-item { background: rgba(255,255,255,0.03); padding: 10px; border-radius: 14px; min-width: 65px; text-align: center; flex-shrink: 0; }
+        .hourly-item { background: rgba(255,255,255,0.4); padding: 12px; border-radius: 16px; min-width: 68px; text-align: center; flex-shrink: 0; border: 1px solid rgba(255,255,255,0.2); }
+        .hourly-item div { font-weight: 600; font-size: 13px; }
     </style>
 </head>
-<body>
+<body class="sunny">
+
+    <!-- Canlı Parçacık Efekt Katmanı -->
+    <div class="weather-effects" id="weatherEffects"></div>
 
     <div class="app-container">
         <div class="search-row">
@@ -73,9 +135,9 @@
         </div>
 
         <div class="main-display">
-            <div style="font-size: 48px;">🌤️</div>
+            <div class="weather-avatar" id="mainIcon">🌞</div>
             <div class="main-temp" id="mainTemp">--</div>
-            <div class="condition" id="mainDesc">Loading...</div>
+            <div class="condition" id="mainDesc">Ferah Atmosfer</div>
         </div>
 
         <div class="grid-stats">
@@ -90,7 +152,6 @@
     </div>
 
     <script>
-        // Akıllı Hafıza (Kullanıcının en son baktığı yeri veya favorilerini hatırlar)
         let lastCoords = JSON.parse(localStorage.getItem('skyline_last_coords')) || { lat: 41.0082, lon: 28.9784, name: "Istanbul" };
         let currentCoords = { ...lastCoords };
         let favorites = JSON.parse(localStorage.getItem('skyline_favs')) || [];
@@ -111,11 +172,7 @@
             
             changeLanguage(config.lang);
             renderFavorites();
-            
-            // Bekletme Yok! Hafızadaki en son şehri anında ekrana basar.
             fetchWeatherData(currentCoords.lat, currentCoords.lon, currentCoords.name);
-            
-            // Arka planda çaktırmadan canlı konumu günceller (kullanıcıyı dondurmaz)
             setTimeout(syncEcosystem, 1000);
         };
 
@@ -150,25 +207,21 @@
         async function searchLocation() {
             const query = document.getElementById('searchInput').value;
             if(!query) return;
-            document.getElementById('mainDesc').innerText = "Searching...";
             try {
                 const res = await fetch(`https://open-meteo.com{encodeURIComponent(query)}&count=1&format=json`);
                 const data = await res.json();
-                if(!data || !data.results || data.results.length === 0) { alert(translations[config.lang].err); document.getElementById('mainDesc').innerText = "Active Sync"; return; }
+                if(!data || !data.results || data.results.length === 0) { alert(translations[config.lang].err); return; }
                 const target = data.results[0];
                 currentCoords = { lat: target.latitude, lon: target.longitude, name: target.name };
-                
-                // En son başarılı aramayı hafızaya kaydet
                 localStorage.setItem('skyline_last_coords', JSON.stringify(currentCoords));
-                
                 fetchWeatherData(target.latitude, target.longitude, target.name);
-            } catch(e) { document.getElementById('mainDesc').innerText = "Network Slow"; }
+            } catch(e) { alert("Network Slow"); }
         }
 
         async function fetchWeatherData(lat, lon, name) {
             const tUnit = config.temp === 'F' ? 'fahrenheit' : 'celsius';
             const wUnit = config.wind === 'mph' ? 'mph' : 'kmh';
-            const url = `https://open-meteo.com{lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,wind_speed_10m&hourly=temperature_2m&temperature_unit=${tUnit}&wind_speed_unit=${wUnit}&timezone=auto`;
+            const url = `https://open-meteo.com{lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&hourly=temperature_2m&temperature_unit=${tUnit}&wind_speed_unit=${wUnit}&timezone=auto`;
             
             try {
                 const res = await fetch(url);
@@ -180,7 +233,9 @@
                 document.getElementById('mainTemp').innerText = `${Math.round(data.current.temperature_2m)}°${config.temp}`;
                 document.getElementById('statWind').innerText = `${data.current.wind_speed_10m} ${config.wind === 'kmh' ? 'km/h' : 'mph'}`;
                 document.getElementById('statHumid').innerText = `${data.current.relative_humidity_2m}%`;
-                document.getElementById('mainDesc').innerText = "Active Sync";
+                
+                // Hava Durumu Koduna Göre Ambiyansı Değiştirme Sistemi
+                updateAmbientTheme(data.current.weather_code);
                 
                 const hourlyCont = document.getElementById('hourlyContainer');
                 hourlyCont.innerHTML = '';
@@ -188,6 +243,60 @@
                     hourlyCont.innerHTML += `<div class="hourly-item"><div>+${i+1}h</div><div><b>${Math.round(data.hourly.temperature_2m[i])}°</b></div></div>`;
                 }
             } catch(e) { console.log(e); }
+        }
+
+        // Akıllı Ambiyans ve Canlı Parçacık Motoru
+        function updateAmbientTheme(code) {
+            const body = document.body;
+            const icon = document.getElementById('mainIcon');
+            const desc = document.getElementById('mainDesc');
+            const effects = document.getElementById('weatherEffects');
+            effects.innerHTML = ''; // Eski efektleri temizle
+
+            if (code <= 1) { // Güneşli / Açık
+                body.className = 'sunny';
+                icon.innerText = '🌞';
+                desc.innerText = config.lang === 'tr' ? 'GÜNEŞLİ VE FERAH' : 'SUNNY & FRESH';
+            } else if (code >= 2 && code <= 48) { // Bulutlu / Sisli
+                body.className = 'cloudy';
+                icon.innerText = '☁️';
+                desc.innerText = config.lang === 'tr' ? 'HUZURLU BULUTLU' : 'PEACEFUL CLOUDY';
+            } else if (code >= 51 && code <= 67) { // Yağmurlu
+                body.className = 'rainy';
+                icon.innerText = '🌧️';
+                desc.innerText = config.lang === 'tr' ? 'BEREKETLİ YAĞMUR' : 'REFRESHING RAIN';
+                createParticles(30, '🌧️', '2px', '15px'); // Yağmur damlaları
+            } else if (code >= 71 && code <= 86) { // Karlı
+                body.className = 'snowy';
+                icon.innerText = '❄️';
+                desc.innerText = config.lang === 'tr' ? 'BEYAZ ÖRTÜ / KARLI' : 'WHITE SNOWFLAKES';
+                createParticles(20, '❄️', '12px', '12px'); // Kar taneleri
+            } else { // Diğer hafif hava olayları
+                body.className = 'sunny';
+                icon.innerText = '🍃';
+                desc.innerText = config.lang === 'tr' ? 'HAFİF ESİNTİ' : 'LIGHT BREEZE';
+            }
+        }
+
+        function createParticles(count, symbol, width, height) {
+            const effects = document.getElementById('weatherEffects');
+            for(let i=0; i<count; i++) {
+                const p = document.createElement('div');
+                p.className = 'particle';
+                p.innerText = symbol === '🌧️' ? '' : symbol;
+                if(symbol === '🌧️') {
+                    p.style.width = width;
+                    p.style.height = height;
+                    p.style.background = 'rgba(255,255,255,0.4)';
+                } else {
+                    p.style.background = 'transparent';
+                    p.style.fontSize = width;
+                }
+                p.style.left = Math.random() * 100 + 'vw';
+                p.style.animationDuration = (Math.random() * 2 + 1.5) + 's';
+                p.style.animationDelay = Math.random() * 2 + 's';
+                effects.appendChild(p);
+            }
         }
 
         function addCurrentToFavorites() {
@@ -230,7 +339,6 @@
                 localStorage.setItem('skyline_last_coords', JSON.stringify(currentCoords));
                 fetchWeatherData(pos.coords.latitude, pos.coords.longitude, "Current Location");
             }, () => {
-                // Engel durumunda hafızadaki eski şehri korur, hata basmaz.
                 fetchWeatherData(currentCoords.lat, currentCoords.lon, currentCoords.name);
             });
         }
