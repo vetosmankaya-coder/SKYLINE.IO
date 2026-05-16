@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SKYLINE.IO - Humanized Climate & Soul Intelligence</title>
+    <title>SKYLINE.IO - Universal Soul & Climate Ambient</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
         
@@ -20,88 +20,90 @@
             position: relative;
         }
 
-        /* Akışkan Atmosfer Renkleri */
-        body.sunny { background: linear-gradient(135deg, #fff9db 0%, #e0f2fe 50%, #bae6fd 100%); color: #1e293b; }
+        /* Küresel Akıllı Temalar */
+        body.sunny { background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 50%, #bae6fd 100%); color: #1e293b; }
         body.cloudy { background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 50%, #cbd5e1 100%); color: #334155; }
-        body.rainy { background: linear-gradient(135deg, #94a3b8 0%, #cbd5e1 50%, #94a3b8 100%); color: #f8fafc; }
-        body.snowy { background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 50%, #e2e8f0 100%); color: #475569; }
+        body.rainy { background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 50%, #94a3b8 100%); color: #1e293b; }
+        body.snowy { background: linear-gradient(135deg, #ffffff 0%, #f8fafc 50%, #e2e8f0 100%); color: #475569; }
 
         .weather-effects { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; overflow: hidden; }
         .particle { position: absolute; border-radius: 50%; animation: fall linear infinite; }
         
         @keyframes fall {
-            0% { transform: translateY(-20px) translateX(0) rotate(0deg); opacity: 0; }
+            0% { transform: translateY(-30px) translateX(0) rotate(0deg); opacity: 0; }
             10% { opacity: 1; }
             90% { opacity: 1; }
-            100% { transform: translateY(105vh) translateX(60px) rotate(360deg); opacity: 0; }
+            100% { transform: translateY(105vh) translateX(70px) rotate(360deg); opacity: 0; }
         }
 
-        /* Yeni Nesil Akışkan Cam Kart Tasarımı */
+        /* Fütüristik Cam Arayüz Tasarımı */
         .app-container { 
             width: 100%; 
             max-width: 480px; 
-            background: rgba(255, 255, 255, 0.45); 
-            backdrop-filter: blur(30px); 
-            -webkit-backdrop-filter: blur(30px);
+            background: rgba(255, 255, 255, 0.42); 
+            backdrop-filter: blur(40px); 
+            -webkit-backdrop-filter: blur(40px);
             border: 1px solid rgba(255,255,255,0.5); 
-            padding: 28px; 
+            padding: 30px; 
             border-radius: 36px; 
-            box-shadow: 0 30px 70px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,0.4); 
+            box-shadow: 0 30px 70px rgba(0,0,0,0.03), inset 0 1px 0 rgba(255,255,255,0.4); 
             z-index: 10;
             position: relative;
         }
         
-        .search-row { display: flex; gap: 10px; margin-bottom: 14px; }
-        input { flex: 1; background: rgba(255,255,255,0.6); border: 1px solid rgba(0,0,0,0.04); padding: 14px; color: #1e293b; border-radius: 18px; outline: none; font-size: 15px; font-weight: 600; box-shadow: inset 0 1px 2px rgba(0,0,0,0.02); }
-        button { background: #0a84ff; color: #fff; border: none; padding: 14px 18px; border-radius: 18px; font-weight: 700; cursor: pointer; font-size: 15px; box-shadow: 0 8px 20px rgba(10,132,255,0.15); }
-        button:active { transform: scale(0.95); }
-        button.add-fav { background: #34c759; box-shadow: 0 8px 20px rgba(52,199,89,0.15); }
+        .search-row { display: flex; gap: 10px; margin-bottom: 15px; }
+        input { flex: 1; background: rgba(255,255,255,0.6); border: 1px solid rgba(0,0,0,0.04); padding: 14px; color: #1e293b; border-radius: 18px; outline: none; font-size: 15px; font-weight: 500; box-shadow: inset 0 1px 2px rgba(0,0,0,0.02); }
+        input:focus { background: rgba(255,255,255,0.85); border-color: #0a84ff; }
+        button { background: #0a84ff; color: #fff; border: none; padding: 14px 20px; border-radius: 18px; font-weight: 600; cursor: pointer; font-size: 15px; box-shadow: 0 4px 15px rgba(10,132,255,0.15); }
+        button:active { transform: scale(0.96); }
+        button.add-fav { background: #34c759; box-shadow: 0 4px 15px rgba(52,199,89,0.15); }
         
-        .fav-bar { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 15px; scrollbar-width: none; min-height: 42px; }
+        .fav-bar { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 15px; scrollbar-width: none; min-height: 40px; }
         .fav-bar::-webkit-scrollbar { display: none; }
-        .fav-chip { background: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.5); padding: 8px 16px; border-radius: 22px; font-size: 13px; font-weight: 700; cursor: pointer; flex-shrink: 0; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
-        .fav-chip .del-btn { color: #ff3b30; font-weight: bold; margin-left: 6px; font-size: 15px; }
+        .fav-chip { background: rgba(255,255,255,0.65); border: 1px solid rgba(255,255,255,0.5); padding: 8px 14px; border-radius: 24px; font-size: 13px; font-weight: 600; cursor: pointer; flex-shrink: 0; display: flex; align-items: center; gap: 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.01); }
+        .fav-chip:hover { background: rgba(255,255,255,0.85); }
+        .fav-chip .del-btn { color: #ff3b30; font-weight: bold; margin-left: 6px; font-size: 14px; }
 
         .header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; }
-        .location { font-size: 26px; font-weight: 800; letter-spacing: -0.8px; }
-        .date { font-size: 13px; opacity: 0.7; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+        .location { font-size: 26px; font-weight: 800; letter-spacing: -0.8px; color: #0f172a; }
+        .date { font-size: 13px; opacity: 0.6; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; }
         .action-btns { display: flex; gap: 10px; }
-        .icon-btn { background: rgba(255,255,255,0.5); border: 1px solid rgba(0,0,0,0.03); color: inherit; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center; font-size: 18px; box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
-        .icon-btn.magic { background: linear-gradient(135deg, #ff9500, #ff2d55); color: #fff; border: none; font-size: 16px; animation: floatBtn 3s ease-in-out infinite; }
-        @keyframes floatBtn { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
-
-        /* OPET Felsefeli Şefkatli Ruh Kutusu */
+        .icon-btn { background: rgba(0,0,0,0.04); border: none; color: inherit; width: 38px; height: 38px; border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center; font-size: 16px; }
+        .icon-btn:hover { background: rgba(0,0,0,0.08); }
+        
+        /* Ruh Isıtan Küresel Şefkat Kutusu (Opet Felsefesi) */
         .care-bubble {
-            background: rgba(255, 255, 255, 0.85);
-            border-left: 6px solid #ff9500;
+            background: rgba(255, 255, 255, 0.75);
+            border-left: 5px solid #0a84ff;
             padding: 16px;
             border-radius: 20px;
             margin-bottom: 22px;
             font-size: 14px;
-            font-weight: 700;
+            font-weight: 600;
             line-height: 1.5;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.03);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.02);
             animation: slideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        body.rainy .care-bubble { background: rgba(30,41,59,0.8); color: #fff; border-left-color: #0a84ff; }
-        @keyframes slideIn { from { opacity: 0; transform: scale(0.95) translateY(-10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: translateY(0); } }
+
+        .settings-panel { display: none; background: rgba(255,255,255,0.9); border-radius: 24px; padding: 20px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.6); box-shadow: 0 15px 30px rgba(0,0,0,0.03); }
+        .setting-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; font-weight: 600; font-size: 15px; }
+        select, .toggle-btn { background: rgba(0,0,0,0.05); color: inherit; border: none; padding: 8px 14px; border-radius: 12px; outline: none; font-size: 14px; cursor: pointer; font-weight: 600; }
 
         .main-display { text-align: center; padding: 20px 0; border-bottom: 1px solid rgba(0,0,0,0.05); }
-        .weather-avatar { font-size: 76px; display: inline-block; animation: pulse 4s ease-in-out infinite; }
-        @keyframes pulse { 0%, 100% { transform: scale(1) rotate(0deg); } 50% { transform: scale(1.1) rotate(4deg); } }
-        .main-temp { font-size: 80px; font-weight: 200; line-height: 1; margin: 10px 0; letter-spacing: -3px; }
-        .condition { font-size: 15px; opacity: 0.8; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+        .weather-avatar { font-size: 76px; display: inline-block; animation: floatIcon 4s ease-in-out infinite; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.05)); }
+        @keyframes floatIcon { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-8px) scale(1.04) rotate(4deg); } }
+        .main-temp { font-size: 80px; font-weight: 200; line-height: 1; margin: 5px 0; letter-spacing: -3px; color: #0f172a; }
+        .condition { font-size: 15px; opacity: 0.75; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
         
-        .grid-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 22px 0; }
-        .stat-card { background: rgba(255,255,255,0.45); padding: 16px; border-radius: 22px; border: 1px solid rgba(255,255,255,0.4); }
-        body.rainy .stat-card { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.1); }
-        .stat-label { font-size: 11px; opacity: 0.6; text-transform: uppercase; margin-bottom: 4px; font-weight: 800; letter-spacing: 0.5px; }
-        .stat-value { font-size: 18px; font-weight: 700; }
+        .grid-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0; }
+        .stat-card { background: rgba(255,255,255,0.45); padding: 16px; border-radius: 22px; border: 1px solid rgba(255,255,255,0.4); box-shadow: 0 4px 12px rgba(0,0,0,0.005); }
+        .stat-label { font-size: 11px; opacity: 0.55; text-transform: uppercase; margin-bottom: 4px; font-weight: 800; letter-spacing: 0.5px; }
+        .stat-value { font-size: 17px; font-weight: 700; color: #0f172a; }
         
-        .section-title { font-size: 13px; font-weight: 800; opacity: 0.6; text-transform: uppercase; margin: 15px 0 10px 0; letter-spacing: 0.5px; }
-        .hourly-scroll { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 8px; scrollbar-width: none; }
-        .hourly-item { background: rgba(255,255,255,0.45); padding: 14px; border-radius: 18px; min-width: 72px; text-align: center; border: 1px solid rgba(255,255,255,0.3); }
-        body.rainy .hourly-item { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.1); }
+        .section-title { font-size: 13px; font-weight: 800; opacity: 0.55; text-transform: uppercase; margin: 18px 0 12px 0; letter-spacing: 0.6px; }
+        .hourly-scroll { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 6px; scrollbar-width: none; }
+        .hourly-item { background: rgba(255,255,255,0.45); padding: 12px; border-radius: 18px; min-width: 70px; text-align: center; flex-shrink: 0; border: 1px solid rgba(255,255,255,0.3); }
         .hourly-item div { font-weight: 700; font-size: 13px; }
     </style>
 </head>
@@ -138,19 +140,18 @@
                 <div class="date" id="liveDate">--</div>
             </div>
             <div class="action-btns">
-                <button class="icon-btn magic" onclick="triggerCompliment()" title="Sihirli Şefkat">✨</button>
                 <button class="icon-btn" onclick="toggleSettings()">⚙️</button>
                 <button class="icon-btn" onclick="syncEcosystem()">⟳</button>
             </div>
         </div>
 
-        <!-- Ruh Modülü: Samimi ve Şefkatli Mesaj Alanı -->
-        <div class="care-bubble" id="careBubble">✨ Yükleniyor...</div>
+        <!-- Ruh Isıtan Opet Tipi Küresel Mesaj Paneli -->
+        <div class="care-bubble" id="careBubble">✨ Connecting to your heart...</div>
 
         <div class="main-display">
             <div class="weather-avatar" id="mainIcon">🌞</div>
             <div class="main-temp" id="mainTemp">--</div>
-            <div class="condition" id="mainDesc">Atmosfer</div>
+            <div class="condition" id="mainDesc">Ferah Atmosfer</div>
         </div>
 
         <div class="grid-stats">
@@ -169,7 +170,6 @@
         let currentCoords = { ...lastCoords };
         let favorites = JSON.parse(localStorage.getItem('skyline_favs')) || [];
         let config = { temp: 'C', wind: 'kmh', lang: 'en' };
-        let lastWeatherCode = 0;
 
         const translations = {
             en: { search: "Search village, town...", wind: "Wind Vector", pollen: "Pollen / AQI", humid: "Humidity", uv: "UV Index", hourly: "Hourly Timeline", err: "Location not found" },
@@ -179,39 +179,29 @@
             ar: { search: "ابحث عن قرية, مدينة...", wind: "سرعة الرياح", pollen: "اللقاح / جودة الهواء", humid: "الرطوبة", uv: "مؤشر الأشعة", hourly: "الجدول الزمني بالساعات", err: "لم يتم العثور على الموقع" }
         };
 
-        // Küresel Psikolojik Destek, Motivasyon ve Opet Aynası Mesajları
+        // Hayatın stresini yok eden, küresel motivasyon kütüphanesi
         const careMessages = {
             en: {
-                sunny: "The sun is shining beautifully, but remember, your own light is what truly brightens the world! Don't forget your sunscreen, okay? You look amazing today! ☀️",
-                cloudy: "The clouds are just resting today, and so should your mind. Leave the work stress behind, you did your absolute best! How about a warm coffee? ☕🍃",
-                rainy: "The sky is washing away all the old energy. Grab your umbrella, keep your heart warm, and remember: after every rain, life blooms beautifully. 🌧️",
-                snowy: "The world is wearing a peaceful white blanket. Wrap yourself up in your thickest coat, stay cozy, and let's face this winter fairy tale safely! ❄️",
-                uvHigh: "The sun is extra passionate today! Protect those beautiful eyes of yours and stay in the shade. Your health means the world to me! 🕶️"
+                sunny: "You look absolutely gorgeous today! 🌟 Remember, even if the world gets busy, you are doing amazing. Take a breath and let your light shine! ☀️",
+                cloudy: "A perfect day to slow down and protect your peace. Don't let today's workload stress you—you are far more important than any task. Coffee time? ☕🍃",
+                rainy: "The sky is washing away yesterday's fatigue. Keep your heart warm, grab your umbrella, and remember: after every rain, you shine brighter! 🌧️💖",
+                snowy: "A magical, pristine day! The world is quiet so you can find your inner peace. Dress in your coziest clothes, stay warm, and smile! ❄️✨",
+                uvHigh: "The sun is super powerful right now—just like your potential! Protect those beautiful eyes and find some cool shade, okay? 🕶️"
             },
             tr: {
-                sunny: "Güneş bugün harika parlıyor ama unutma, asıl dünyayı aydınlatan senin içindeki ışık! Bugün gerçekten harika görünüyorsunuz. Koruyucunu sürmeyi unutma olur mu? ☀️",
-                cloudy: "Bulutlar sadece gökyüzünün dinlenme şeklidir. Sen de zihnini dinlendir, hayatın stresini bir kenara bırak; bugün elinden gelenin en iyisini yaptın! Bir kahve? ☕🍃",
-                rainy: "Gökyüzü tüm yorgun enerjileri temizliyor. Şemsiyeni al, içini sıcak tut ve sakın unutma: En güzel çiçekler yağmurlardan sonra açar. Şifa olsun! 🌧️",
-                snowy: "Dünya bugün büyüleyici beyaz bir örtü giymiş. En kalın montunu sarın, adımlarına dikkat et; bu kış masalının tadını çıkarırken kendini hep sıcak tut! ❄️",
-                uvHigh: "Güneş bugün biraz fazla heyecanlı! O güzel gözlerini koru ve gölgenin tadını çıkar. Senin sağlığın benim için her şeyden değerli! 🕶️"
+                sunny: "Bugün harika görünüyorsun! 🌟 Unutma, hayat ne kadar yoğun olursa olsun çok iyi gidiyorsun. Derin bir nefes al ve parlamaya devam et! ☀️",
+                cloudy: "Zihnini dinlendirmek ve huzurunu korumak için harika bir gün. İş yorgunluğunun seni strese sokmasına izin verme, sen her şeyden önemlisin. Bi' kahve? ☕🍃",
+                rainy: "Gökyüzü bugünün tüm yorgunluğunu temizliyor. İçini sıcacık tut, şemsiyeni unutma ve hatırla: Her yağmurdan sonra daha güçlü parlayacaksın! 🌧️💖",
+                snowy: "Büyüleyici, tertemiz bir gün! Hayatın stresini bir kenara bırakıp bu beyaz masalın tadını çıkar. En sıcak giysilerini seç ve gülümse! ❄️✨",
+                uvHigh: "Güneş bugün tıpkı senin enerjin gibi çok güçlü! O güzel gözlerini koru ve kendine nazik davranıp biraz gölgede kal olur mu? 🕶️"
+            },
+            zh: {
+                sunny: "你今天真好看！🌟 记住，无论生活多么忙碌，你都做得很棒。深呼吸，展现你的光芒吧！☀️",
+                cloudy: "放慢脚步、守护内心平静的完美一天。别让工作压力影响你——你比任何任务都重要。喝杯咖啡吧？☕🍃",
+                rainy: "天空正在洗去昨天的疲惫。保持内心的温暖，带上雨伞，记住：风雨过后，你会闪耀得更加明亮！🌧️💖",
+                snowy: "神奇而纯净的一天！世界安静了下来，愿你找到内心的平静。穿上最舒适的衣服，保持温暖，微笑面对！❄️✨",
+                uvHigh: "现在的阳光非常强烈——就像你的潜力一样！保护好你美丽的眼睛，找个凉爽的阴凉处，好吗？🕶️"
             }
-        };
-
-        const generalCompliments = {
-            en: [
-                "Hey! Just wanted to remind you: You look absolutely stunning today! ✨",
-                "Take a deep breath. Let go of the work fatigue. You are doing great! 🌸",
-                "No matter how cloudy the sky is, your smile can change someone's entire day. 😊",
-                "You are stronger than any storm. Trust your journey! 🚀",
-                "You survived 100% of your hardest days. You've got this! 💪"
-            ],
-            tr: [
-                "Küçük bir hatırlatma: Bugün gerçekten göz kamaştırıcı ve harika görünüyorsun! ✨",
-                "Derin bir nefes al. İş yorgunluğunu ve stresi tamamen geride bırak. Çok değerlisin! 🌸",
-                "Gökyüzü ne kadar bulutlu olursa olsun, senin bir gülüşün bir insanın gününü aydınlatabilir. 😊",
-                "Sen hayatındaki tüm fırtınalardan daha güçlüsün. Kendine inanmaktan vazgeçme! 🚀",
-                "Hayatın tüm stresine meydan okuyan o harika kalbine bugün çok iyi bak olur mu? Kucak dolusu sevgiler! 💖"
-            ]
         };
 
         window.onload = function() {
@@ -253,21 +243,6 @@
             fetchWeatherData(currentCoords.lat, currentCoords.lon, currentCoords.name);
         }
 
-        /* Sihirli Şefkat Butonu Tetikleyicisi (✨) */
-        function triggerCompliment() {
-            const bubble = document.getElementById('careBubble');
-            const lang = generalCompliments[config.lang] ? config.lang : 'en';
-            const arr = generalCompliments[lang];
-            const rand = arr[Math.floor(Math.random() * arr.length)];
-            
-            bubble.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-                bubble.innerText = rand;
-                bubble.style.transform = 'scale(1)';
-                bubble.style.borderLeftColor = '#ff2d55';
-            }, 200);
-        }
-
         async function searchLocation() {
             const query = document.getElementById('searchInput').value;
             if(!query) return;
@@ -298,10 +273,9 @@
                 document.getElementById('statWind').innerText = `${data.current.wind_speed_10m} ${config.wind === 'kmh' ? 'km/h' : 'mph'}`;
                 document.getElementById('statHumid').innerText = `${data.current.relative_humidity_2m}%`;
                 
-                const currentUV = data.hourly.uv_index ? Math.round(data.hourly.uv_index[0]) : 1;
+                const currentUV = data.hourly.uv_index ? Math.round(data.hourly.uv_index) : 1;
                 document.getElementById('statUV').innerText = currentUV + ' Index';
 
-                lastWeatherCode = data.current.weather_code;
                 updateAmbientTheme(data.current.weather_code, currentUV);
                 
                 const hourlyCont = document.getElementById('hourlyContainer');
@@ -325,60 +299,61 @@
             if (uv >= 6) {
                 body.className = 'sunny';
                 icon.innerText = '🕶️';
-                desc.innerText = config.lang === 'tr' ? 'GÜNEŞLİ / YÜKSEK UV' : 'SUNNY / HIGH UV';
+                desc.innerText = config.lang === 'tr' ? 'IŞILDAYAN GÜNEŞ' : 'RADIANT SUNLIGHT';
                 bubble.innerText = careMessages[lang].uvHigh;
                 bubble.style.borderLeftColor = '#ff3b30';
             } else if (code <= 1) {
                 body.className = 'sunny';
                 icon.innerText = '🌞';
-                desc.innerText = config.lang === 'tr' ? 'BERRAK VE PARLAK KALP' : 'SUNNY & CLEAR HEART';
+                desc.innerText = config.lang === 'tr' ? 'GÜNEŞLİ VE FERAH' : 'SUNNY & FRESH';
                 bubble.innerText = careMessages[lang].sunny;
                 bubble.style.borderLeftColor = '#ffcc00';
             } else if (code >= 2 && code <= 48) {
                 body.className = 'cloudy';
                 icon.innerText = '☁️';
-                desc.innerText = config.lang === 'tr' ? 'DİNLENDİRİCİ BULUTLU' : 'PEACEFUL CLOUDY';
+                desc.innerText = config.lang === 'tr' ? 'HUZURLU BULUTLU' : 'PEACEFUL CLOUDY';
                 bubble.innerText = careMessages[lang].cloudy;
                 bubble.style.borderLeftColor = '#0a84ff';
+                createParticles(10, '🍃', '14px', '14px'); // Tatlı esen yapraklar
             } else if (code >= 51 && code <= 67) {
                 body.className = 'rainy';
                 icon.innerText = '🌧️';
-                desc.innerText = config.lang === 'tr' ? 'ENERJİ TEMİZLİĞİ / YAĞMURLU' : 'REFRESHING RAINY';
+                desc.innerText = config.lang === 'tr' ? 'BEREKETLİ YAĞMUR' : 'REFRESHING RAIN';
                 bubble.innerText = careMessages[lang].rainy;
                 bubble.style.borderLeftColor = '#5856d6';
-                createParticles(25, '🌧️', '2px', '16px', '#ffffff');
+                createParticles(40, '🌧️', '2px', '18px'); // Yumuşak cam damlaları
             } else if (code >= 71 && code <= 86) {
                 body.className = 'snowy';
                 icon.innerText = '❄️';
-                desc.innerText = config.lang === 'tr' ? 'BEYAZ KIŞ MASALI' : 'WHITE SNOW FANTASY';
+                desc.innerText = config.lang === 'tr' ? 'BEYAZ ÖRTÜ / KARLI' : 'WHITE SNOWFLAKES';
                 bubble.innerText = careMessages[lang].snowy;
                 bubble.style.borderLeftColor = '#acafb5';
-                createParticles(15, '❄️', '14px', '14px', 'transparent');
+                createParticles(25, '❄️', '14px', '14px'); // Masalsı kar taneleri
             } else {
                 body.className = 'sunny';
                 icon.innerText = '🍃';
-                desc.innerText = config.lang === 'tr' ? 'HAFİF MUTLU ESİNTİ' : 'LIGHT HAPPY BREEZE';
+                desc.innerText = config.lang === 'tr' ? 'HAFİF ESİNTİ' : 'LIGHT BREEZE';
                 bubble.innerText = careMessages[lang].cloudy;
             }
         }
 
-        function createParticles(count, symbol, width, height, bg) {
+        function createParticles(count, symbol, width, height) {
             const effects = document.getElementById('weatherEffects');
             for(let i=0; i<count; i++) {
                 const p = document.createElement('div');
                 p.className = 'particle';
+                p.innerText = symbol === '🌧️' ? '' : symbol;
                 if(symbol === '🌧️') {
                     p.style.width = width;
                     p.style.height = height;
-                    p.style.background = 'rgba(255,255,255,0.35)';
+                    p.style.background = 'rgba(0,122,255,0.2)';
                 } else {
-                    p.innerText = symbol;
-                    p.style.background = bg;
+                    p.style.background = 'transparent';
                     p.style.fontSize = width;
                 }
                 p.style.left = Math.random() * 100 + 'vw';
                 p.style.animationDuration = (Math.random() * 2.5 + 2) + 's';
-                p.style.animationDelay = Math.random() * 2 + 's';
+                p.style.animationDelay = Math.random() * 3 + 's';
                 effects.appendChild(p);
             }
         }
@@ -419,4 +394,13 @@
 
         function syncEcosystem() {
             navigator.geolocation.getCurrentPosition((pos) => {
-                currentCoords = { lat: pos.coords.latitude, lon: pos.
+                currentCoords = { lat: pos.coords.latitude, lon: pos.coords.longitude, name: "Current Location" };
+                localStorage.setItem('skyline_last_coords', JSON.stringify(currentCoords));
+                fetchWeatherData(pos.coords.latitude, pos.coords.longitude, "Current Location");
+            }, () => {
+                fetchWeatherData(currentCoords.lat, currentCoords.lon, currentCoords.name);
+            });
+        }
+    </script>
+</body>
+</html>
